@@ -48,5 +48,6 @@
     <modules>
     	<module>oauth2</module>
     	<module>resttemplate</module>
+    	<module>jpa-mysql</module>
     </modules>
 </project>
