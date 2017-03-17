@@ -2,8 +2,6 @@ package jpamysql.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -11,8 +9,6 @@ import javax.persistence.Table;
 public class Role {
 	@Id
 	private String id;
-	@ManyToOne
-	@JoinColumn(name = "uid")
 	private String uid;
 	private String rolename;
 	public String getId() {

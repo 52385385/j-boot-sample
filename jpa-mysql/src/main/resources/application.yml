@@ -22,4 +22,4 @@ spring:
         strategy: org.hibernate.cfg.ImprovedNamingStrategy
     properties:
       hibernate:
-        dialect: rg.hibernate.dialect.MySQL5Dialect
+        dialect: org.hibernate.dialect.MySQL5Dialect
