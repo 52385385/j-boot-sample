@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/yimym?characterEncoding=utf-8&useUnicode=true&useSSL=false
     username: root
-    password: nomes_8129@yimym
+    password: root#pass
     dbcp:
       driverClassName: com.mysql.jdbc.Driver
       test-on-borrow: false
