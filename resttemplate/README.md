@@ -11,5 +11,8 @@ return 307 https://$host$request_uri
 
 2. postObject() performs to retrieve a list of objects via post method, note the list type is defined in ParameterizedTypeReference<T>. A header(oauth2 maybe) is appended to http headers.
 
+### Important notes:
+As to post or put method, if server @RequestBody, MultivalueMap(String, Object) data is created and send with headers in HttpEntity(data, headers), if server @ReqeustParam, MultivalueMap(String, String) data is created and send with UriComponentsBuilder.requestParams(data)
+
 ## hashCode()
 Inner class Apis.UserModel illustrates a simple sample on overriding method hasCode() to ensure object equal() method.
