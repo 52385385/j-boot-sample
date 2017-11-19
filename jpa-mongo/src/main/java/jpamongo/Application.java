@@ -1,0 +1,53 @@
+package jpamongo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.RestTemplate;
+
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+@SpringBootApplication
+@EnableSwagger2
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+	
+	private ApiInfo apiInfo() {
+		return new ApiInfoBuilder()
+				.title("practical project sample on aqi collection")
+				.build();
+	}
+	
+	@Bean
+	public Docket customImplementation() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.select()
+					.apis(RequestHandlerSelectors.basePackage("jpamongo.api"))
+					.build()
+				.apiInfo(apiInfo());
+	}
+	
+	@Bean("RestTemplate")
+	public RestTemplate myRestTemplate() {
+		return new RestTemplate();
+	}
+	
+	@Controller
+	public class SwaggerContorller {
+		@RequestMapping(value = "/swagger")
+		public String index() {
+			return "redirect:swagger-ui.html";
+		}
+	}
+
+}
