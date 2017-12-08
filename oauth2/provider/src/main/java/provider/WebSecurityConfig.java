@@ -1,5 +1,7 @@
 package provider;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
+import auth.config.WebSecurityConfig.OAuthRequestMatcher;
 import provider.user.UserDetailsServiceImpl;
 @Configuration
 @EnableWebSecurity
@@ -31,7 +35,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable()
-		.authorizeRequests().anyRequest().authenticated();
+		http
+			.csrf().disable()
+			.requestMatcher(new OAuthRequestMatcher())
+			.authorizeRequests().anyRequest().authenticated();
+	}
+	private static class OAuthRequestMatcher implements RequestMatcher {
+		@Override
+		public boolean matches(HttpServletRequest request) {
+			String auth = request.getHeader("Authorization");
+			return (auth == null);
+		}
 	}
 }
